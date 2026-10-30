@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0f4c5c">
+<meta name="description" content="Sistema Personal de Bienestar y Desarrollo Integral - App de guía estratégica">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Bienestar">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Bienestar · Carlos Enrique Manzano Kossik</title>
+<style>
+  :root {
+    --bg: #f4f6f9;
+    --bg-warm: #faf6f1;
+    --card: #ffffff;
+    --primary: #0f4c5c;
+    --primary-light: #e6f3f5;
+    --primary-soft: #1a6b7a;
+    --accent: #e36414;
+    --accent-soft: #fff0e6;
+    --violet: #7b5ea7;
+    --violet-soft: #f3eef8;
+    --teal: #2a9d8f;
+    --teal-soft: #e6f7f5;
+    --coral: #e76f51;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --success: #2a9d8f;
+    --warning: #e9c46a;
+    --shadow: 0 4px 24px rgba(15, 76, 92, 0.08);
+    --shadow-lg: 0 12px 40px rgba(15, 76, 92, 0.12);
+    --radius: 18px;
+    --radius-sm: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: linear-gradient(160deg, #f4f6f9 0%, #eef5f4 50%, #faf6f1 100%);
+    color: var(--text);
+    line-height: 1.65;
+    padding-bottom: 90px;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 16px;
+  }
+
+  /* Header */
+  header {
+    background: linear-gradient(135deg, #0f4c5c 0%, #1a6b7a 40%, #2a9d8f 100%);
+    color: white;
+    padding: 36px 20px 28px;
+    text-align: center;
+    border-radius: 0 0 32px 32px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 60%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  header h1 {
+    font-size: 1.55rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: -0.02em;
+    position: relative;
+  }
+  header .subtitle {
+    font-size: 1rem;
+    opacity: 0.92;
+    font-weight: 400;
+  }
+  header .meta {
+    font-size: 0.82rem;
+    margin-top: 12px;
+    opacity: 0.75;
+  }
+
+  /* Action bar */
+  .action-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin: 16px 0 24px;
+    padding: 0 8px;
+  }
+  .action-btn {
+    background: white;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    padding: 11px 18px;
+    border-radius: 14px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.22s ease;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    box-shadow: 0 2px 8px rgba(15,76,92,0.08);
+  }
+  .action-btn:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(15,76,92,0.18);
+  }
+  .action-btn.ai {
+    background: linear-gradient(135deg, var(--violet), #9b6dca);
+    color: white;
+    border-color: transparent;
+  }
+  .action-btn.ai:hover {
+    background: linear-gradient(135deg, #6a4c93, var(--violet));
+    transform: translateY(-2px);
+  }
+
+  /* Cards */
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 26px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(226,232,240,0.8);
+    transition: box-shadow 0.25s ease;
+  }
+  .card:hover {
+    box-shadow: var(--shadow-lg);
+  }
+  .card h2 {
+    font-size: 1.28rem;
+    color: var(--primary);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: -0.01em;
+  }
+  .card h3 {
+    font-size: 1.08rem;
+    color: var(--primary-soft);
+    margin: 20px 0 10px;
+  }
+  .card p, .card li {
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+  .card ul, .card ol {
+    padding-left: 20px;
+    margin: 10px 0;
+  }
+  .card li { margin-bottom: 7px; }
+
+  .formula {
+    background: linear-gradient(135deg, var(--primary-light), var(--teal-soft));
+    border-left: 5px solid var(--teal);
+    padding: 18px 20px;
+    border-radius: 14px;
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin: 16px 0;
+    text-align: center;
+    color: var(--primary);
+  }
+
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-top: 18px;
+  }
+  .pillar {
+    background: linear-gradient(145deg, var(--primary-light), #f0f9fa);
+    border-radius: 14px;
+    padding: 16px 12px;
+    text-align: center;
+    font-size: 0.88rem;
+    border: 1px solid rgba(42,157,143,0.15);
+  }
+  .pillar strong {
+    display: block;
+    color: var(--primary);
+    margin-bottom: 5px;
+    font-size: 0.95rem;
+  }
+
+  /* Weeks */
+  .week-grid { display: grid; gap: 16px; }
+  .week-item {
+    background: linear-gradient(145deg, #f8fafc, #f1f5f9);
+    border-radius: 14px;
+    padding: 18px;
+    border: 1px solid var(--border);
+    position: relative;
+  }
+  .week-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    bottom: 12px;
+    width: 4px;
+    border-radius: 4px;
+    background: linear-gradient(to bottom, var(--teal), var(--primary));
+  }
+  .week-item h4 {
+    color: var(--primary);
+    margin-bottom: 8px;
+    font-size: 1.02rem;
+    padding-left: 8px;
+  }
+  .week-item label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 0.92rem;
+    margin-top: 8px;
+    padding-left: 8px;
+  }
+  .week-item input[type="checkbox"] {
+    margin-top: 3px;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--teal);
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    margin: 14px 0;
+  }
+  th, td {
+    padding: 11px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    background: linear-gradient(135deg, var(--primary-light), var(--teal-soft));
+    color: var(--primary);
+    font-weight: 600;
+  }
+  tr:last-child td { border-bottom: none; }
+
+  /* Day cards */
+  .days-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 14px;
+    margin-top: 16px;
+  }
+  .day-card {
+    background: linear-gradient(160deg, #ffffff, #f8fafc);
+    border-radius: 16px;
+    padding: 18px;
+    border: 1px solid var(--border);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .day-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+  }
+  .day-card h4 {
+    color: var(--primary);
+    margin-bottom: 8px;
+    font-size: 1rem;
+  }
+  .day-card a {
+    display: inline-block;
+    margin-top: 12px;
+    background: linear-gradient(135deg, var(--primary), var(--teal));
+    color: white;
+    text-decoration: none;
+    padding: 9px 16px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: opacity 0.2s;
+  }
+  .day-card a:hover { opacity: 0.9; }
+
+  /* Audio */
+  .audio-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .audio-links a {
+    background: linear-gradient(135deg, var(--violet), #9b6dca);
+    color: white;
+    text-decoration: none;
+    padding: 11px 18px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .audio-links a:hover { opacity: 0.92; }
+
+  .note {
+    background: linear-gradient(135deg, #fff8e6, #fff3d6);
+    border-left: 4px solid var(--warning);
+    padding: 14px 16px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    margin-top: 16px;
+  }
+
+  /* Affirmations */
+  .affirmation {
+    background: linear-gradient(145deg, #f8fafc, var(--violet-soft));
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(123,94,167,0.12);
+  }
+  .affirmation label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  .affirmation input[type="checkbox"] {
+    margin-top: 3px;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--violet);
+  }
+  .affirmation .action-input {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.9rem;
+    background: white;
+  }
+
+  /* Habit table */
+  .habit-table-wrap { overflow-x: auto; border-radius: 12px; }
+  .habit-table { min-width: 740px; }
+  .habit-table th, .habit-table td {
+    text-align: center;
+    padding: 9px 6px;
+    font-size: 0.84rem;
+  }
+  .habit-table th:first-child,
+  .habit-table td:first-child {
+    text-align: left;
+    min-width: 150px;
+    font-weight: 500;
+  }
+  .habit-table select,
+  .habit-table input[type="number"],
+  .habit-table input[type="text"] {
+    width: 100%;
+    max-width: 68px;
+    padding: 5px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.84rem;
+    text-align: center;
+    background: white;
+  }
+
+  /* Stats */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  .stat-card {
+    background: linear-gradient(145deg, var(--primary) 0%, var(--teal) 100%);
+    color: white;
+    border-radius: 16px;
+    padding: 20px 16px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(15,76,92,0.2);
+  }
+  .stat-card:nth-child(2) {
+    background: linear-gradient(145deg, var(--violet) 0%, #9b6dca 100%);
+  }
+  .stat-card:nth-child(3) {
+    background: linear-gradient(145deg, var(--accent) 0%, #f4a261 100%);
+  }
+  .stat-card:nth-child(4) {
+    background: linear-gradient(145deg, #2a9d8f 0%, #264653 100%);
+  }
+  .stat-card .value {
+    font-size: 2.1rem;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+  .stat-card .label {
+    font-size: 0.84rem;
+    opacity: 0.92;
+    margin-top: 5px;
+  }
+  .progress-bar {
+    height: 14px;
+    background: #e2e8f0;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 8px 0 6px;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--teal), var(--primary));
+    border-radius: 20px;
+    transition: width 0.5s ease;
+  }
+  .streak {
+    text-align: center;
+    font-size: 1.12rem;
+    margin: 18px 0;
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  /* Agreement */
+  .agreement-box {
+    background: linear-gradient(145deg, var(--primary-light), var(--teal-soft));
+    border-radius: 16px;
+    padding: 22px;
+    font-size: 0.95rem;
+    line-height: 1.75;
+    border: 1px solid rgba(42,157,143,0.2);
+  }
+  .signature-area {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 22px;
+    align-items: flex-end;
+  }
+  .signature-area input {
+    padding: 11px 14px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 0.95rem;
+    min-width: 180px;
+    background: white;
+  }
+  .btn {
+    background: linear-gradient(135deg, var(--primary), var(--teal));
+    color: white;
+    border: none;
+    padding: 13px 24px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 14px rgba(15,76,92,0.2);
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(15,76,92,0.28);
+  }
+  .btn-secondary {
+    background: linear-gradient(135deg, #64748b, #475569);
+  }
+
+  /* Task list */
+  .task-list { list-style: none; padding: 0; }
+  .task-list li {
+    background: linear-gradient(145deg, #ffffff, #f8fafc);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 9px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+  }
+  .task-list input[type="checkbox"] {
+    margin-top: 3px;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--teal);
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 28px 16px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    margin-top: 30px;
+  }
+  footer strong { color: var(--primary); }
+
+  /* Save bar */
+  .save-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border);
+    padding: 12px 16px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    box-shadow: 0 -6px 24px rgba(0,0,0,0.06);
+    z-index: 100;
+  }
+
+  .muted { color: var(--text-muted); font-size: 0.9rem; }
+  .mt-2 { margin-top: 12px; }
+  .mb-2 { margin-bottom: 12px; }
+
+  /* Modals */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(15, 30, 40, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal {
+    background: white;
+    border-radius: 22px;
+    max-width: 640px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 30px 26px;
+    position: relative;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.22);
+  }
+  .modal h2 {
+    color: var(--primary);
+    font-size: 1.32rem;
+    margin-bottom: 16px;
+    padding-right: 30px;
+  }
+  .modal h3 {
+    color: var(--primary-soft);
+    font-size: 1.05rem;
+    margin: 18px 0 8px;
+  }
+  .modal p, .modal li { font-size: 0.95rem; margin-bottom: 8px; }
+  .modal ul, .modal ol { padding-left: 20px; margin-bottom: 12px; }
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    background: none;
+    border: none;
+    font-size: 1.7rem;
+    cursor: pointer;
+    color: var(--text-muted);
+    line-height: 1;
+  }
+  .modal-close:hover { color: var(--primary); }
+  .prompt-box {
+    background: linear-gradient(145deg, var(--primary-light), var(--violet-soft));
+    border-radius: 14px;
+    padding: 16px;
+    font-size: 0.9rem;
+    margin: 14px 0;
+    white-space: pre-wrap;
+    border: 1px solid var(--border);
+  }
+  .modal-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .modal-links a {
+    background: linear-gradient(135deg, var(--primary), var(--teal));
+    color: white;
+    text-decoration: none;
+    padding: 11px 18px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.28rem; }
+    .card { padding: 20px; }
+    .stat-card .value { font-size: 1.7rem; }
+    .action-btn { font-size: 0.82rem; padding: 10px 14px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Sistema Personal de Bienestar</h1>
+  <div class="subtitle">Panel de guía estratégica · Desarrollo Integral</div>
+  <div class="meta">Carlos Enrique Manzano Kossik · Octubre 2026</div>
+</header>
+
+<div class="action-bar">
+  <button class="action-btn" onclick="openModal('modal-instructivo')">📖 Cómo usar</button>
+  <button class="action-btn" onclick="openModal('modal-tecnicas')">🧩 Técnicas</button>
+  <button class="action-btn ai" onclick="openModal('modal-ia')">🤖 Consultar IA</button>
+</div>
+
+<div class="container">
+
+  <section class="card">
+    <h2>1. Fundamentos</h2>
+    <div class="formula">
+      Expansión personal = conciencia de lo que vivo + cuidado básico + acción coherente + revisión compasiva
+    </div>
+    <p class="muted">Guía organizativa, no ecuación científica ni garantía de resultados.</p>
+    <div class="pillars">
+      <div class="pillar"><strong>Cuerpo</strong>Descanso, energía y necesidades</div>
+      <div class="pillar"><strong>Mente</strong>Hechos, interpretaciones y decisiones</div>
+      <div class="pillar"><strong>Emoción</strong>Reconocer sin obedecer</div>
+      <div class="pillar"><strong>Espíritu</strong>Sentido, gratitud y conexión</div>
+      <div class="pillar"><strong>Entorno</strong>Apoyos y menos obstáculos</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>2. Plan de seis semanas</h2>
+    <p class="muted mb-2">Periodo de prueba. Avanza a tu ritmo. Las tareas de coaching son opcionales.</p>
+    
+    <div class="week-grid">
+      <div class="week-item">
+        <h4>Semanas 1-2 · Base</h4>
+        <p>Observar sueño + mañana y cierre breves.</p>
+        <label><input type="checkbox" data-key="week12" onchange="saveAll()"> Registro de 7 días y 2 hábitos elegidos</label>
+        <h4 class="mt-2" style="font-size:0.92rem;color:var(--teal);">Coaching opcional</h4>
+        <label><input type="checkbox" data-key="mied1-lista" onchange="saveAll()"> Lista de molestias que tolero</label>
+        <label><input type="checkbox" data-key="mied1-elim" onchange="saveAll()"> Eliminé al menos 3 molestias</label>
+        <label><input type="checkbox" data-key="mied1-despeje" onchange="saveAll()"> Despejé un espacio</label>
+        <label><input type="checkbox" data-key="mied1-habito" onchange="saveAll()"> Elegí 1-2 hábitos placenteros</label>
+      </div>
+
+      <div class="week-item">
+        <h4>Semanas 3-4 · Emoción y límites</h4>
+        <p>Práctica emocional/espiritual + un límite concreto.</p>
+        <label><input type="checkbox" data-key="week34" onchange="saveAll()"> Dos registros de pensamientos + un límite</label>
+        <h4 class="mt-2" style="font-size:0.92rem;color:var(--teal);">Coaching opcional</h4>
+        <label><input type="checkbox" data-key="mied2-deberia" onchange="saveAll()"> Revisé y reformulé mis “debería”</label>
+        <label><input type="checkbox" data-key="mied2-limite" onchange="saveAll()"> Practiqué el modelo de 4 pasos</label>
+        <label><input type="checkbox" data-key="mied2-ilusion" onchange="saveAll()"> Algo que me haga ilusión cada día</label>
+      </div>
+
+      <div class="week-item">
+        <h4>Semanas 5-6 · Consolidar</h4>
+        <p>Consolidar lo útil + explorar expresión profesional.</p>
+        <label><input type="checkbox" data-key="week56" onchange="saveAll()"> Consolidé prácticas + página de exploración</label>
+        <h4 class="mt-2" style="font-size:0.92rem;color:var(--teal);">Coaching opcional</h4>
+        <label><input type="checkbox" data-key="mied3-despeje" onchange="saveAll()"> Continué despejando y simplificando</label>
+        <label><input type="checkbox" data-key="mied3-celebrar" onchange="saveAll()"> Celebré mis avances</label>
+        <label><input type="checkbox" data-key="mied3-revision" onchange="saveAll()"> Revisé y comuniqué nuevos límites</label>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>3. Técnicas de coaching</h2>
+    <p class="muted mb-2">Inspiradas en Talane Miedaner. Úsalas solo cuando aporten energía.</p>
+
+    <h3>Modelo de 4 pasos para límites</h3>
+    <ol>
+      <li><strong>Informar</strong> (tono neutro): “¿Te das cuenta de que estás gritando?”</li>
+      <li><strong>Pedir</strong>: “Por favor, deja de hacerlo.”</li>
+      <li><strong>Exigir</strong>: “Insisto en que dejes de hacerlo ahora.”</li>
+      <li><strong>Irse</strong> sin discutir si continúa.</li>
+    </ol>
+
+    <h3>Otras técnicas rápidas</h3>
+    <ul class="task-list">
+      <li><input type="checkbox" data-key="tech-molestias" onchange="saveAll()"><div><strong>Lista de molestias</strong> — Escribe lo que toleras. Elimina 1-3 por semana.</div></li>
+      <li><input type="checkbox" data-key="tech-deberia" onchange="saveAll()"><div><strong>Eliminar “debería”</strong> — Si lleva más de un año sin acción, elimínalo o reformúlalo.</div></li>
+      <li><input type="checkbox" data-key="tech-habitos" onchange="saveAll()"><div><strong>Hábitos placenteros</strong> — Solo lo que realmente disfrutas.</div></li>
+      <li><input type="checkbox" data-key="tech-despeje" onchange="saveAll()"><div><strong>Despejar espacio</strong> — 20-30 min. ¿Lo usé en 6 meses?</div></li>
+      <li><input type="checkbox" data-key="tech-ilusion" onchange="saveAll()"><div><strong>Algo que me haga ilusión</strong> — Aunque sean 5 minutos al día.</div></li>
+      <li><input type="checkbox" data-key="tech-celebrar" onchange="saveAll()"><div><strong>Celebrar</strong> — Reconoce lo que sí hiciste.</div></li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>4. Rutina de mañana</h2>
+    <p>Registra una semana de sueño real antes de adelantar el despertador. Mínimo recomendado: 7 horas.</p>
+    
+    <h3>Versión 20 minutos</h3>
+    <table>
+      <thead><tr><th>Tiempo</th><th>Práctica</th><th>Resultado</th></tr></thead>
+      <tbody>
+        <tr><td>5 min</td><td>Movimiento suave</td><td>Empecé sin exigirme</td></tr>
+        <tr><td>10 min</td><td>Emoción + apreciación + acción</td><td>Intención concreta</td></tr>
+        <tr><td>5 min</td><td>Leer o inglés</td><td>Una idea o frase aplicada</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Versión 5 minutos (días difíciles)</h3>
+    <p>1 min cuerpo y respiración · 2 min cómo estoy y qué necesito · 2 min acción pequeña. Descansar también cuenta.</p>
+
+    <h3>Circuito 20 minutos en casa</h3>
+    <table>
+      <thead><tr><th>Min</th><th>Qué hacer</th><th>Regulación</th></tr></thead>
+      <tbody>
+        <tr><td>0–4</td><td>Calentamiento suave</td><td>Sin forzar cuello</td></tr>
+        <tr><td>4–14</td><td>5 movimientos × 2 (30s/30s)</td><td>Esfuerzo moderado</td></tr>
+        <tr><td>14–18</td><td>Vuelta a la calma</td><td>Sin dolor</td></tr>
+        <tr><td>18–20</td><td>Anotar energía</td><td>Mínimo: 5 min suaves</td></tr>
+      </tbody>
+    </table>
+    <div class="note">Si hay dolor entre nuca y sien, mantén cabeza neutra. Detén ante dolor agudo, mareo o presión en el pecho.</div>
+  </section>
+
+  <section class="card">
+    <h2>5. Movimiento de lunes a viernes</h2>
+    <p class="muted">Adapta a tu energía. Si hay gimnasio, elige la opción suave.</p>
+    <div class="days-grid">
+      <div class="day-card">
+        <h4>Lunes · Fuerza suave</h4>
+        <p>Circuito peso corporal o gimnasio.</p>
+        <a href="https://www.youtube.com/watch?v=LlDEFkuJmko" target="_blank" rel="noopener">Video referencia</a>
+      </div>
+      <div class="day-card">
+        <h4>Martes · Movilidad</h4>
+        <p>Articular + caminata cómoda.</p>
+        <a href="https://www.youtube.com/watch?v=AKci_ika5h4" target="_blank" rel="noopener">Video referencia</a>
+      </div>
+      <div class="day-card">
+        <h4>Miércoles · Fuerza suave</h4>
+        <p>Circuito o ajuste según gimnasio.</p>
+        <a href="https://www.youtube.com/watch?v=1wL4BWCmnQI" target="_blank" rel="noopener">Video referencia</a>
+      </div>
+      <div class="day-card">
+        <h4>Jueves · Recuperación</h4>
+        <p>Movilidad o descanso según energía.</p>
+        <a href="https://www.youtube.com/watch?v=Oan6M2pGuxA" target="_blank" rel="noopener">Video referencia</a>
+      </div>
+      <div class="day-card">
+        <h4>Viernes · Fuerza / Gimnasio</h4>
+        <p>Uno u otro, no ambos intensos.</p>
+        <a href="https://www.youtube.com/watch?v=GX3MhAiyaXs" target="_blank" rel="noopener">Video referencia</a>
+      </div>
+      <div class="day-card">
+        <h4>Sábado / Domingo</h4>
+        <p>Caminata, baile o descanso total.</p>
+        <a href="https://www.youtube.com/watch?v=CtKO68s2TA4" target="_blank" rel="noopener">Video suave</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>6. Sonido binaural 369 (opcional)</h2>
+    <p>Úsalo solo si te gusta, a volumen cómodo y nunca en lugar de sueño.</p>
+    <div class="audio-links">
+      <a href="https://www.youtube.com/watch?v=hK-OPtECSkw" target="_blank" rel="noopener">Principal 369</a>
+      <a href="https://www.youtube.com/watch?v=sZYjWSihkqI" target="_blank" rel="noopener">Alternativa 1</a>
+      <a href="https://www.youtube.com/watch?v=wLn8vLwWHsY" target="_blank" rel="noopener">Alternativa 2</a>
+      <a href="https://www.youtube.com/watch?v=xrvEs5q1vKQ" target="_blank" rel="noopener">Alternativa 3</a>
+    </div>
+    <div class="note">Puedes elegir música o silencio. El descanso real siempre tiene prioridad.</div>
+  </section>
+
+  <section class="card">
+    <h2>7. Declaraciones creíbles</h2>
+    <p class="muted mb-2">Elige dos o tres. Escribe una acción pequeña y realista.</p>
+    
+    <div class="affirmation">
+      <label><input type="checkbox" data-key="aff1" onchange="saveAll()"> Mi valor personal no depende de mi productividad.</label>
+      <input type="text" class="action-input" data-key="aff1-action" placeholder="Acción de hoy..." onchange="saveAll()">
+    </div>
+    <div class="affirmation">
+      <label><input type="checkbox" data-key="aff2" onchange="saveAll()"> Puedo actuar con dudas y seguir aprendiendo.</label>
+      <input type="text" class="action-input" data-key="aff2-action" placeholder="Acción de hoy..." onchange="saveAll()">
+    </div>
+    <div class="affirmation">
+      <label><input type="checkbox" data-key="aff3" onchange="saveAll()"> Estoy construyendo mayor autonomía paso a paso.</label>
+      <input type="text" class="action-input" data-key="aff3-action" placeholder="Acción de hoy..." onchange="saveAll()">
+    </div>
+    <div class="affirmation">
+      <label><input type="checkbox" data-key="aff4" onchange="saveAll()"> Puedo reconocer recursos y atender mis dificultades.</label>
+      <input type="text" class="action-input" data-key="aff4-action" placeholder="Acción de hoy..." onchange="saveAll()">
+    </div>
+    <div class="affirmation">
+      <label><input type="checkbox" data-key="aff5" onchange="saveAll()"> Mi experiencia puede aportar valor a otras personas.</label>
+      <input type="text" class="action-input" data-key="aff5-action" placeholder="Acción de hoy..." onchange="saveAll()">
+    </div>
+    <div class="affirmation">
+      <label><input type="checkbox" data-key="aff6" onchange="saveAll()"> Puedo mejorar mi relación con el dinero mediante decisiones informadas.</label>
+      <input type="text" class="action-input" data-key="aff6-action" placeholder="Acción de hoy..." onchange="saveAll()">
+    </div>
+    <div class="affirmation">
+      <label><input type="checkbox" data-key="aff7" onchange="saveAll()"> Puedo cuidar mi cuerpo sin exigirle perfección.</label>
+      <input type="text" class="action-input" data-key="aff7-action" placeholder="Acción de hoy..." onchange="saveAll()">
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>8. Control semanal de hábitos</h2>
+    <p class="muted">Semana del <input type="date" id="weekStart" onchange="saveAll()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);"> 
+    · Hábitos: 
+    <input type="text" id="habitA" placeholder="Hábito A" onchange="saveAll()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);max-width:130px;">
+    y 
+    <input type="text" id="habitB" placeholder="Hábito B" onchange="saveAll()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);max-width:130px;">
+    </p>
+    <p class="muted mb-2">C = completado · M = versión mínima · R = recuperación · — = no realizado</p>
+    
+    <div class="habit-table-wrap">
+      <table class="habit-table">
+        <thead>
+          <tr><th>Registro</th><th>L</th><th>M</th><th>X</th><th>J</th><th>V</th><th>S</th><th>D</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Horas de sueño</td>
+            <td><input type="number" min="0" max="14" step="0.5" data-key="sleep-L" onchange="saveAll()"></td>
+            <td><input type="number" min="0" max="14" step="0.5" data-key="sleep-M" onchange="saveAll()"></td>
+            <td><input type="number" min="0" max="14" step="0.5" data-key="sleep-X" onchange="saveAll()"></td>
+            <td><input type="number" min="0" max="14" step="0.5" data-key="sleep-J" onchange="saveAll()"></td>
+            <td><input type="number" min="0" max="14" step="0.5" data-key="sleep-V" onchange="saveAll()"></td>
+            <td><input type="number" min="0" max="14" step="0.5" data-key="sleep-S" onchange="saveAll()"></td>
+            <td><input type="number" min="0" max="14" step="0.5" data-key="sleep-D" onchange="saveAll()"></td>
+          </tr>
+          <tr>
+            <td>Movimiento</td>
+            <td><select data-key="move-L" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="move-M" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="move-X" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="move-J" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="move-V" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="move-S" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="move-D" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+          </tr>
+          <tr>
+            <td>Reflexión breve</td>
+            <td><select data-key="ref-L" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="ref-M" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="ref-X" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="ref-J" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="ref-V" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="ref-S" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="ref-D" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+          </tr>
+          <tr>
+            <td>Preparar mañana</td>
+            <td><select data-key="prep-L" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="prep-M" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="prep-X" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="prep-J" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="prep-V" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="prep-S" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="prep-D" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+          </tr>
+          <tr>
+            <td>Algo que me hizo ilusión</td>
+            <td><select data-key="ilusion-L" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="ilusion-M" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="ilusion-X" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="ilusion-J" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="ilusion-V" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="ilusion-S" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="ilusion-D" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+          </tr>
+          <tr>
+            <td>Molestia eliminada</td>
+            <td><select data-key="molestia-L" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="molestia-M" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="molestia-X" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="molestia-J" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="molestia-V" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="molestia-S" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="molestia-D" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+          </tr>
+          <tr>
+            <td>Límite practicado</td>
+            <td><select data-key="limite-L" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="limite-M" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="limite-X" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="limite-J" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="limite-V" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="limite-S" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+            <td><select data-key="limite-D" onchange="saveAll()"><option value="">—</option><option>C</option><option>M</option><option>R</option></select></td>
+          </tr>
+          <tr>
+            <td>Energía (0-10)</td>
+            <td><input type="number" min="0" max="10" data-key="energy-L" onchange="saveAll()"></td>
+            <td><input type="number" min="0" max="10" data-key="energy-M" onchange="saveAll()"></td>
+            <td><input type="number" min="0" max="10" data-key="energy-X" onchange="saveAll()"></td>
+            <td><input type="number" min="0" max="10" data-key="energy-J" onchange="saveAll()"></td>
+            <td><input type="number" min="0" max="10" data-key="energy-V" onchange="saveAll()"></td>
+            <td><input type="number" min="0" max="10" data-key="energy-S" onchange="saveAll()"></td>
+            <td><input type="number" min="0" max="10" data-key="energy-D" onchange="saveAll()"></td>
+          </tr>
+          <tr>
+            <td>Molestia física</td>
+            <td><input type="text" data-key="pain-L" onchange="saveAll()" placeholder="—"></td>
+            <td><input type="text" data-key="pain-M" onchange="saveAll()" placeholder="—"></td>
+            <td><input type="text" data-key="pain-X" onchange="saveAll()" placeholder="—"></td>
+            <td><input type="text" data-key="pain-J" onchange="saveAll()" placeholder="—"></td>
+            <td><input type="text" data-key="pain-V" onchange="saveAll()" placeholder="—"></td>
+            <td><input type="text" data-key="pain-S" onchange="saveAll()" placeholder="—"></td>
+            <td><input type="text" data-key="pain-D" onchange="saveAll()" placeholder="—"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>9. Estadísticas de avance</h2>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="value" id="statDay">0%</div>
+        <div class="label">Hoy</div>
+      </div>
+      <div class="stat-card">
+        <div class="value" id="statWeek">0%</div>
+        <div class="label">Semana</div>
+      </div>
+      <div class="stat-card">
+        <div class="value" id="statMonth">0%</div>
+        <div class="label">Mes</div>
+      </div>
+      <div class="stat-card">
+        <div class="value" id="statStreak">0</div>
+        <div class="label">Racha (días)</div>
+      </div>
+    </div>
+
+    <p>Hoy</p>
+    <div class="progress-bar"><div class="progress-fill" id="barDay" style="width:0%"></div></div>
+    <p>Semana actual</p>
+    <div class="progress-bar"><div class="progress-fill" id="barWeek" style="width:0%"></div></div>
+    <p>Mes actual</p>
+    <div class="progress-bar"><div class="progress-fill" id="barMonth" style="width:0%"></div></div>
+
+    <div class="streak" id="streakMsg">Comienza hoy. Cada versión mínima cuenta.</div>
+    <p class="muted mt-2">Un día incompleto no rompe el proceso.</p>
+  </section>
+
+  <section class="card">
+    <h2>10. Mi acuerdo de práctica</h2>
+    <div class="agreement-box">
+      Me comprometo a observarme con honestidad y tratarme con respeto. Cuidaré mi sueño y mis responsabilidades antes de ampliar el sistema. Puedo desear una vida distinta y reconocer los límites del presente. No usaré mis emociones, mi dinero ni mi productividad como medidas de mi dignidad. Revisaré el plan con curiosidad y pediré apoyo cuando lo necesite. Integraré las técnicas de coaching solo cuando me aporten energía y claridad, nunca como otra carga.
+    </div>
+    <div class="signature-area">
+      <div>
+        <label class="muted">Fecha</label><br>
+        <input type="date" id="signDate" onchange="saveAll()">
+      </div>
+      <div>
+        <label class="muted">Firma</label><br>
+        <input type="text" id="signName" placeholder="Carlos Enrique Manzano Kossik" onchange="saveAll()">
+      </div>
+      <button class="btn" onclick="signAgreement()">Firmar y guardar</button>
+    </div>
+    <p id="signedMsg" class="mt-2" style="color:var(--success);font-weight:600;display:none;">✓ Acuerdo firmado y guardado.</p>
+  </section>
+
+  <section class="card">
+    <h2>Cuándo buscar ayuda profesional</h2>
+    <p>Si la ansiedad, el ánimo bajo, el insomnio o la autocrítica persisten o interfieren con tu vida cotidiana, consulta a un profesional de salud mental. Este panel es un cuaderno de autoayuda, no un diagnóstico ni un tratamiento.</p>
+  </section>
+
+</div>
+
+<footer>
+  <p><strong>Cuaderno de autoayuda y reflexión · No es evaluación psicológica ni tratamiento.</strong></p>
+  <p class="mt-2">Diseñado para Carlos Enrique Manzano Kossik · Octubre 2026</p>
+  <p>Progressive Web App · Lista para instalar en el teléfono</p>
+</footer>
+
+<div class="save-bar">
+  <button class="btn" onclick="saveAll(true)">Guardar progreso</button>
+  <button class="btn btn-secondary" onclick="exportData()">Exportar datos</button>
+</div>
+
+<!-- Modals -->
+<div class="modal-overlay" id="modal-instructivo">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-instructivo')">&times;</button>
+    <h2>Cómo usar este panel</h2>
+    <p>Este es tu instrumento personal de bienestar. Está diseñado para acompañarte con suavidad, no para exigirte.</p>
+    <h3>1. Empieza por el sueño y los dos hábitos</h3>
+    <p>Durante las primeras dos semanas registra tu sueño y practica solo dos hábitos (mañana y cierre). La versión mínima siempre cuenta.</p>
+    <h3>2. Usa el registro semanal</h3>
+    <p>Marca C (completado), M (versión mínima), R (recuperación) o — si no lo hiciste. No hay castigo por los días incompletos.</p>
+    <h3>3. Revisa las estadísticas</h3>
+    <p>Sirven para observar, no para juzgarte.</p>
+    <h3>4. Técnicas de coaching (opcionales)</h3>
+    <p>Úsalas solo cuando te den energía. Si un día no te apetece, está bien omitirlas.</p>
+    <h3>5. Declaraciones y acciones</h3>
+    <p>Elige solo dos o tres. Escribe una acción pequeña y realista.</p>
+    <h3>6. Guardar y exportar</h3>
+    <p>Todo se guarda en este dispositivo. Usa “Exportar datos” para un respaldo en JSON.</p>
+    <h3>Principio rector</h3>
+    <p><strong>Cuidar el sueño y las responsabilidades viene antes que ampliar el sistema.</strong></p>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-tecnicas">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-tecnicas')">&times;</button>
+    <h2>Explicación de las técnicas</h2>
+    <h3>Lista de molestias</h3>
+    <p>Escribe todo lo que toleras. Elimina 1-3 ítems por semana. Recuperarás energía.</p>
+    <h3>Eliminar o reformular “debería”</h3>
+    <p>Si un objetivo lleva más de un año sin acción, elimínalo o conviértelo en algo vivo.</p>
+    <h3>Hábitos placenteros</h3>
+    <p>Solo lo que realmente disfrutas. Si es carga, no se sostiene.</p>
+    <h3>Despejar espacio</h3>
+    <p>20-30 minutos. Criterio: “¿Lo usé en los últimos 6 meses?”</p>
+    <h3>Modelo de 4 pasos para límites</h3>
+    <ol>
+      <li>Informar con tono neutro</li>
+      <li>Pedir</li>
+      <li>Exigir</li>
+      <li>Irse si continúa</li>
+    </ol>
+    <h3>Algo que me haga ilusión</h3>
+    <p>Aunque sean 5 minutos. Recupera el contacto con lo que te da energía.</p>
+    <h3>Celebrar</h3>
+    <p>Reconoce conscientemente lo que sí hiciste. Refuerza mucho más que la autocrítica.</p>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-ia">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-ia')">&times;</button>
+    <h2>Consultar dudas con la IA</h2>
+    <p>Usa este prompt listo. Pégalo en Grok o ChatGPT y añade tu duda.</p>
+    <div class="prompt-box" id="promptText">Actúa como mi psicólogo asesor de bienestar y coach personal. Estoy usando mi panel de Sistema Personal de Bienestar y Desarrollo Integral (descanso, conciencia emocional, valores, acciones sostenibles y técnicas adaptadas de Talane Miedaner). 
+
+Mi duda o situación actual es:
+
+[Escribe aquí tu duda]
+
+Ayúdame con una respuesta práctica, compasiva y realista. Priorizo el sueño, evito la perfección y uso versiones mínimas cuando es necesario.</div>
+    <button class="btn" style="margin-top:10px;" onclick="copyPrompt()">Copiar prompt</button>
+    <div class="modal-links">
+      <a href="https://grok.x.ai" target="_blank" rel="noopener">Abrir Grok</a>
+      <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT</a>
+    </div>
+    <p class="muted mt-2">La IA no sustituye la ayuda profesional cuando la necesitas.</p>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = 'bienestar_app_carlos_v3';
+
+  function loadData() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch(e) { return {}; }
+  }
+
+  function saveAll(showToast = false) {
+    const data = loadData();
+    document.querySelectorAll('[data-key]').forEach(el => {
+      if (el.type === 'checkbox') data[el.dataset.key] = el.checked;
+      else data[el.dataset.key] = el.value;
+    });
+    data.weekStart = document.getElementById('weekStart').value;
+    data.habitA = document.getElementById('habitA').value;
+    data.habitB = document.getElementById('habitB').value;
+    data.signDate = document.getElementById('signDate').value;
+    data.signName = document.getElementById('signName').value;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    calculateStats();
+    if (showToast) alert('Progreso guardado en este dispositivo.');
+  }
+
+  function restoreData() {
+    const data = loadData();
+    document.querySelectorAll('[data-key]').forEach(el => {
+      const key = el.dataset.key;
+      if (data[key] !== undefined) {
+        if (el.type === 'checkbox') el.checked = !!data[key];
+        else el.value = data[key];
+      }
+    });
+    if (data.weekStart) document.getElementById('weekStart').value = data.weekStart;
+    if (data.habitA) document.getElementById('habitA').value = data.habitA;
+    if (data.habitB) document.getElementById('habitB').value = data.habitB;
+    if (data.signDate) document.getElementById('signDate').value = data.signDate;
+    if (data.signName) document.getElementById('signName').value = data.signName;
+    if (data.signed) document.getElementById('signedMsg').style.display = 'block';
+    calculateStats();
+  }
+
+  function calculateStats() {
+    const data = loadData();
+    const days = ['L','M','X','J','V','S','D'];
+    let completed = 0, totalPossible = 0;
+    days.forEach(d => {
+      ['move','ref','prep','ilusion','molestia','limite'].forEach(prefix => {
+        totalPossible++;
+        const val = data[prefix + '-' + d];
+        if (val === 'C' || val === 'M' || val === 'R') completed++;
+      });
+    });
+    let affDone = 0;
+    for (let i = 1; i <= 7; i++) if (data['aff' + i]) affDone++;
+    let weeksDone = 0;
+    if (data.week12) weeksDone++;
+    if (data.week34) weeksDone++;
+    if (data.week56) weeksDone++;
+    const weekPct = totalPossible > 0 ? Math.round((completed / totalPossible) * 100) : 0;
+    const dayPct = Math.min(100, Math.round((affDone / 3) * 30 + (weekPct * 0.7)));
+    const monthPct = Math.round((weekPct * 0.65) + (weeksDone / 3 * 35));
+    let streak = 0;
+    for (let i = days.length - 1; i >= 0; i--) {
+      const d = days[i];
+      const has = data['move-'+d] || data['ref-'+d] || data['prep-'+d] || data['ilusion-'+d];
+      if (has && has !== '') streak++;
+      else if (streak > 0) break;
+    }
+    document.getElementById('statDay').textContent = dayPct + '%';
+    document.getElementById('statWeek').textContent = weekPct + '%';
+    document.getElementById('statMonth').textContent = monthPct + '%';
+    document.getElementById('statStreak').textContent = streak;
+    document.getElementById('barDay').style.width = dayPct + '%';
+    document.getElementById('barWeek').style.width = weekPct + '%';
+    document.getElementById('barMonth').style.width = monthPct + '%';
+    const msg = document.getElementById('streakMsg');
+    if (streak === 0) msg.textContent = 'Comienza hoy. Cada versión mínima cuenta.';
+    else if (streak < 3) msg.textContent = `Llevas ${streak} día(s). Sigue con suavidad.`;
+    else if (streak < 7) msg.textContent = `¡Racha de ${streak} días! Estás construyendo consistencia.`;
+    else msg.textContent = `Excelente racha de ${streak} días. Recuerda también descansar.`;
+  }
+
+  function signAgreement() {
+    const name = document.getElementById('signName').value.trim();
+    const date = document.getElementById('signDate').value;
+    if (!name || !date) { alert('Completa fecha y nombre.'); return; }
+    const data = loadData();
+    data.signed = true;
+    data.signName = name;
+    data.signDate = date;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    document.getElementById('signedMsg').style.display = 'block';
+    saveAll();
+  }
+
+  function exportData() {
+    const data = loadData();
+    const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'bienestar_carlos_' + new Date().toISOString().slice(0,10) + '.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function openModal(id) {
+    document.getElementById(id).classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', function(e) {
+      if (e.target === this) closeModal(this.id);
+    });
+  });
+
+  function copyPrompt() {
+    const text = document.getElementById('promptText').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      alert('Prompt copiado. Pégalo en Grok o ChatGPT y añade tu duda.');
+    }).catch(() => {
+      alert('Selecciona el texto y cópialo manualmente.');
+    });
+  }
+
+  // Service Worker registration for PWA
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    restoreData();
+    if (!document.getElementById('signDate').value) {
+      document.getElementById('signDate').value = new Date().toISOString().slice(0,10);
+    }
+  });
+</script>
+</body>
+</html>
+```
